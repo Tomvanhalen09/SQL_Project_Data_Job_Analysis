@@ -1,4 +1,4 @@
-* This project is still in construction, so the SQL code is not finalised yet
+* This project is still in construction, so the SQL code is not finalised yet *
 # 1. Introduction
 In this project, I dive into global and Dutch job postings data to uncover **top skills in demand** and **high-paying opportunities**, providing valuable insights for job seekers and career builders. 
 
