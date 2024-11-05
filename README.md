@@ -33,8 +33,65 @@ The tools I used to analyse the different job postings are:
 
 
 # 4. The Analysis
+For the analysis of job postings I tried to answer the questions defined in chapter 2 the best I could by writing different SQL queries, which i will discuss the answers for in this chapter.
+### 1. What are the top-paying data analyst jobs?
+To identify the highest paying Data Analyst jobs, I filtered on Data Analyst positions and sorted these on average yearly salary. To make the query more interesting for myself i decided to write multiple queries to compare global remote jobs with jobs on-site in my home country 'The Netherlands'
+
+Query 1: Global Remote Jobs
+```sql
+SELECT
+    job_id,
+    job_title,
+    job_location,
+    job_schedule_type,
+    salary_year_avg,
+    job_posted_date,
+    name AS company_name
+FROM
+    job_postings_fact
+    LEFT JOIN company_dim 
+    ON job_postings_fact.company_id =             company_dim.company_id
+WHERE
+    job_title_short = 'Data Analyst' AND
+    job_location = 'Anywhere' AND
+    salary_year_avg IS NOT NULL
+ORDER BY
+    salary_year_avg DESC
+LIMIT 10
+```
+Query 2: On-site jobs in The Netherlands
+```sql
+SELECT
+    job_id,
+    job_title,
+    job_location,
+    job_schedule_type,
+    salary_year_avg,
+    job_posted_date,
+    name AS company_name
+FROM
+    job_postings_fact
+    LEFT JOIN company_dim 
+    ON job_postings_fact.company_id = company_dim.company_id
+WHERE
+    job_title_short = 'Data Analyst' AND
+    job_location LIKE '%Nether%' AND
+    salary_year_avg IS NOT NULL
+ORDER BY
+    salary_year_avg DESC
+LIMIT 10
+```
+Here is the breakdown of the top data analyst jobs for both remote jobs and jobs in The Netherlands:
+- **Large salary differences**: As shown in the graph below, there is a significant difference in the top salaries between remote roles and roles in the Netherlands. The top remote roles pay between €184,000 and €650,000, while the highest paying jobs in the Netherlands range from €98,500 to €177,283.
+  
+- **Similar average salaries**: While the top salaries are much higher for remote roles, the average salaries for Data Analyst job postings are much closer. In fact, the average salary for job postings in the Netherlands is slightly higher, with an average yearly income of €98,278, compared to the global average for remote roles, which is €94,769.
 
 
+![Top paying roles](Images/Comparison_remote_onsite_salary.png)
+| Average Description                           | Average Income       |
+|-----------------------------------------------|----------------------|
+| Data Analyst Job Postings in The Netherlands  | €98,278.03             |
+| Remote (global) Job Postings                  | €94,769.86             |
 
 
 
